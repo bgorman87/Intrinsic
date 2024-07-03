@@ -1,0 +1,35 @@
+:root {
+    --background: white;
+    --background-muted: #eeeeee;
+    --background-header: #f8f9fa;
+    --text-primary: rgb(54, 54, 54);
+    --text-muted: #ccc;
+    --text-secondary: royalblue;
+    --accent: purple;
+    --invert: 0;
+    --accent-stock: var(--text-primary);
+  }
+  [data-theme="dark"] {
+    --background: black;
+    --background-muted: #333;
+    --background-header: #222;
+    --text-primary: rgb(206, 206, 206);
+    --text-muted: #666;
+    --text-secondary: grey;
+    --accent: darkred;
+    --invert: 1;
+    --accent-stock: var(--text-primary);
+  }
+  [data-stock="true"] {
+    --accent-stock: rgb(58, 182, 58);
+  }
+
+
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--background);
+    color: var(--text-primary);
+    transition: background-color 0.5s, color 0.5s;
+  }

@@ -1,0 +1,95 @@
+.stock-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+.stock-list > h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+    padding: 1rem;
+}
+
+.stock-list__stock {
+    padding: 1rem;
+    border-top: 1px solid var(--text-muted);
+}
+
+.stock-list__stock:first-child {
+    border-top: none;
+}
+
+.stock-list__stock-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.stock-list__stock h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+    padding: 0;
+}
+
+.stock-list__stock h3 {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin: 0;
+    padding: 0;
+}
+
+.stock-list p {
+    margin: 0;
+}
+
+.stock-list__intrinsic-values {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    gap: 10px;
+    border-radius: 0.5rem;
+}
+
+.stock-list__intrinsic__value {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    background-color: var(--background-muted);
+    color: var(--accent-stock);
+    border-radius: 0.5rem;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+}
+
+.stock-list__intrinsic__value.pe::after{
+    content: "PE";
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.stock-list__intrinsic__value.roe::after{
+    content: "ROE";
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.stock-list__intrinsic__value.dcf::after{
+    content: "DCF";
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.stock-list__stock:last-child {
+    margin-bottom: 25px;
+}

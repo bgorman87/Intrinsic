@@ -1,0 +1,22 @@
+footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--background-header);
+    border-top: 1px solid var(--text-primary);
+    width: 100%;
+    position: fixed;
+    font-size: 0.75rem;
+    z-index: 100;
+    bottom: 0;
+    flex-wrap: wrap;
+}
+
+.footer_spacer {
+    flex: 1;
+}
+
+footer p {
+    margin: 0;
+    padding: 0.5rem;
+}
