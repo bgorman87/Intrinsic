@@ -1,11 +1,11 @@
 name: Build and Deploy
 
-on:
-  push:
-    branches:
-      - master
-    paths:
-      - 'intrinsic-frontend/**'
+# on:
+#   push:
+#     branches:
+#       - master
+#     paths:
+#       - 'intrinsic-frontend/**'
 
 jobs:
   build:
