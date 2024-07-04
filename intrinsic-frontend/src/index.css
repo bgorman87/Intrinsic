@@ -23,6 +23,9 @@
   [data-stock="true"] {
     --accent-stock: rgb(58, 182, 58);
   }
+  [data-stock="false"] {
+    --accent-stock: rgb(182, 58, 58);
+  }
 
 
   body {
