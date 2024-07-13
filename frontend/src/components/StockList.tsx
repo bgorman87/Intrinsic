@@ -12,8 +12,8 @@ const StockList = ({ title, stockData }: Props) => {
     <div className="stock-list">
       <h2>{title.toUpperCase()}</h2>
       <div className="stock-list__stocks">
-        {stockData.map((stock) => (
-          <div className="stock-list__stock">
+        {stockData.map((stock, index) => (
+          <div key={index} className="stock-list__stock">
             <div className="stock-list__stock-title">
               <h2 className="stock-list__stock__ticker">{stock.ticker.toUpperCase()}</h2>
               <h2 className="stock-list__stock__price">${stock.price}</h2>
