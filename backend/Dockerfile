@@ -2,12 +2,17 @@ FROM node:22.4.0
 
 WORKDIR /usr/src/app
 
-COPY package*.json ./
+ARG BACKEND_PORT
 
+ENV BACKEND_PORT=$BACKEND_PORT
+
+COPY package*.json ./
 RUN npm install
 
 COPY . .
 
-EXPOSE 3000
+RUN if [ "$NODE_ENV" = "production" ]; then npm run build; fi
 
-CMD ["npm", "start"]
+EXPOSE $BACKEND_PORT
+
+CMD ["npm", "run", "dev"]

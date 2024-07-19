@@ -8,6 +8,7 @@ services:
     depends_on:
       - db
     environment:
+      - NODE_ENV=development
       - DATABASE_USER=${DATABASE_USER}
       - DATABASE_PASSWORD=${DATABASE_PASSWORD}
       - DATABASE_NAME=${DATABASE_NAME}
@@ -15,6 +16,11 @@ services:
       - DATABASE_PORT=${DATABASE_PORT}
       - SITE_URL=${SITE_URL}
       - BACKEND_PORT=${BACKEND_PORT}
+    volumes:
+      - ./backend:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - "${BACKEND_PORT}:${BACKEND_PORT}"
     networks:
       - backend-network
 
@@ -24,6 +30,8 @@ services:
       POSTGRES_USER: ${DATABASE_USER}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
       POSTGRES_DB: ${DATABASE_NAME}
+    ports:
+      - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
       - ./database/schema.sql:/docker-entrypoint-initdb.d/schema.sql
@@ -31,20 +39,25 @@ services:
     networks:
       - backend-network
 
-  nginx:
+  frontend:
     build:
       context: ./frontend
-      dockerfile: Dockerfile.prod
+      dockerfile: Dockerfile.dev
+    working_dir: /app
+    command: npm run dev
+    env_file:
+      - .env.dev
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
     ports:
-      - "${FRONTEND_PORT}:80"
+      - "${FRONTEND_PORT}:${FRONTEND_PORT}"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
     depends_on:
       - express-app
-    environment:
-      - BACKEND_HOST=express-app
-      - BACKEND_PORT=${BACKEND_PORT}
     networks:
       - frontend-network
-      - backend-network
 
 volumes:
   pgdata:

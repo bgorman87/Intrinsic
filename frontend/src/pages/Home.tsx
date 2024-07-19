@@ -2,7 +2,7 @@ import '../styles/Home.css'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import StockList from '../components/StockList'
-import { Stock } from '../types'
+import { greatStockData, goodStockData, okayStockData } from '../data/stocks'
 
 interface Props {
     theme: string;
@@ -10,8 +10,6 @@ interface Props {
 }
 
 function Home({ theme, switchTheme }: Props) {
-
-  
 
   return (
     <div className="home" data-theme={theme}>

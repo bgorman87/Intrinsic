@@ -4,8 +4,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import Home from "./pages/Home";
-import StockPage from "./pages/StockPage";
-import { okayStockData, goodStockData, greatStockData } from './data/stocks';
+// import StockPage from "./pages/StockPage";
 
 function App() {
 
@@ -28,10 +27,10 @@ function App() {
       path: "/",
       element: <Home theme={theme} switchTheme={switchTheme} />,
     },
-    {
-      path: "/stock",
-      element: <StockPage theme={theme} switchTheme={switchTheme} />,
-    },
+    // {
+    //   path: "/stock",
+    //   element: <StockPage theme={theme} switchTheme={switchTheme} />,
+    // },
   ]);
 
     return (
