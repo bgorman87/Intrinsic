@@ -1,0 +1,16 @@
+FROM node:22.4.0
+
+WORKDIR /usr/src/app
+
+ARG BACKEND_PORT
+
+ENV BACKEND_PORT=$BACKEND_PORT
+
+COPY package*.json ./
+RUN npm install
+
+COPY . .
+
+EXPOSE $BACKEND_PORT
+
+CMD ["npm", "run", "dev"]

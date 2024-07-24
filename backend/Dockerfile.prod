@@ -11,8 +11,8 @@ RUN npm install
 
 COPY . .
 
-RUN if [ "$NODE_ENV" = "production" ]; then npm run build; fi
+RUN npm run build
 
 EXPOSE $BACKEND_PORT
 
-CMD ["npm", "run", "dev"]
+CMD ["node", "dist/index.js"]

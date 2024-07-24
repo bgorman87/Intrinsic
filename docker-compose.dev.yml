@@ -2,7 +2,7 @@ services:
   express-app:
     build:
       context: ./backend
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
       args:
         BACKEND_PORT: ${BACKEND_PORT}
     depends_on:
@@ -43,6 +43,8 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile.dev
+      args:
+        VITE_API_BASE_URL: ${API_BASE_URL}
     working_dir: /app
     command: npm run dev
     env_file:
