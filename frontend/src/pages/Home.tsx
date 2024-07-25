@@ -2,7 +2,7 @@ import '../styles/Home.css'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import StockList from '../components/StockList'
-import { greatStockData, goodStockData, okayStockData } from '../data/stocks'
+import { Quality } from '../types';
 
 interface Props {
     theme: string;
@@ -16,13 +16,13 @@ function Home({ theme, switchTheme }: Props) {
       <Header theme={theme} switchTheme={switchTheme}/>
       <div className="home__stock-lists">
         <div className="home__stock-list great">
-          <StockList title="great" stockData={greatStockData}/>
+          <StockList quality={1 as Quality}/>
         </div>
         <div className="home__stock-list good">
-          <StockList title="good" stockData={goodStockData}/>
+          <StockList quality={2 as Quality}/>
         </div>
         <div className="home__stock-list okay">
-          <StockList title="okay" stockData={okayStockData}/>
+          <StockList quality={3 as Quality}/>
         </div>
       </div>
       <Footer/>

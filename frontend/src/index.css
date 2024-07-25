@@ -8,6 +8,7 @@
     --accent: purple;
     --invert: 0;
     --accent-stock: var(--text-primary);
+    --header-height: 4rem;
   }
   [data-theme="dark"] {
     --background: black;
