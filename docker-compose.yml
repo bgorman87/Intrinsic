@@ -46,6 +46,7 @@ services:
       - BACKEND_HOST=${BACKEND_HOST}
       - BACKEND_PORT=${BACKEND_PORT}
       - REACT_APP_API_BASE_URL=${REACT_APP_API_BASE_URL}
+      - SERVER_NAME=${SERVER_NAME}
     depends_on:
       - express-app
     ports:
