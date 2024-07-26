@@ -47,7 +47,7 @@ const StockList = ({ quality }: StockCardProps) => {
             <div className="stock-list__stock__details">
               <div className="stock-list__stock__summary__icon">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm0-1.5A6.5 6.5 0 1 1 8 1a6.5 6.5 0 0 1 0 13zm0-9a.75.75 0 0 0-.75.75v5a.75.75 0 0 0 1.5 0v-5A.75.75 0 0 0 8 5.5zm0-1.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5z"/>
+                  <path fillRule="evenodd" d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm0-1.5A6.5 6.5 0 1 1 8 1a6.5 6.5 0 0 1 0 13zm0-9a.75.75 0 0 0-.75.75v5a.75.75 0 0 0 1.5 0v-5A.75.75 0 0 0 8 5.5zm0-1.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5z"/>
                 </svg>
                 <span className="tooltiptext">Some Text</span>
               </div>
