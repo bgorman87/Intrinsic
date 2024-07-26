@@ -1,7 +1,7 @@
 import { Stock } from "./types";
 
 
-const apiUrl = import.meta.env.REACT_APP_API_BASE_URL || "/api";
+const apiUrl = import.meta.env.VITE_API_BASE_URL || "/api";
 
 export const fetchStocksByQuality = async (
   quality: string
