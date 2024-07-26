@@ -1,3 +1,4 @@
+/* Stock List Container */
 .stock-list {
     display: flex;
     flex-direction: column;
@@ -10,6 +11,7 @@
     box-sizing: border-box;
     background-color: var(--background-muted);
     padding: 1rem;
+    padding-right: 0.5rem;
 }
 
 .stock-list > h2 {
@@ -25,11 +27,33 @@
     text-align: center;
 }
 
+/* Scrollable Stock List */
 .stock-list__stocks {
-    width: 100%;
+    width: calc(100% - 6px); /* Add space between stocks and scrollbar */
     height: 100%;
     overflow-y: auto;
     box-sizing: border-box;
+    padding-right: 10px; /* Prevent content from being hidden behind the scrollbar */
+}
+
+/* Custom Scrollbar */
+.stock-list__stocks::-webkit-scrollbar {
+    width: 12px;
+}
+
+.stock-list__stocks::-webkit-scrollbar-track {
+    background: var(--text-muted);
+    border-radius: 10px;
+}
+
+.stock-list__stocks::-webkit-scrollbar-thumb {
+    background-color: var(--accent-stock);
+    border-radius: 10px;
+    border: 3px solid var(--text-muted);
+}
+
+.stock-list__stocks::-webkit-scrollbar-thumb:hover {
+    background-color: var(--accent-stock-hover);
 }
 
 .stock-list__stock {
@@ -37,6 +61,7 @@
     border-top: 1px solid var(--text-muted);
     width: 100%;
     box-sizing: border-box;
+    overflow: hidden;
 }
 
 .stock-list__stock:first-child {
@@ -57,6 +82,7 @@
     color: var(--text-primary);
     margin: 0;
     padding: 0;
+    word-break: break-word;
 }
 
 .stock-list__stock h3 {
@@ -65,6 +91,7 @@
     color: var(--text-primary);
     margin: 0;
     padding: 0;
+    word-break: break-word;
 }
 
 .stock-list p {
@@ -159,11 +186,9 @@
     .stock-list {
         max-width: 100%;
     }
-
 }
 
 @media (max-width: 480px) {
-
     .stock-list {
         padding: 0.5rem;
     }

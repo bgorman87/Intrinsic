@@ -23,7 +23,7 @@
   justify-content: space-evenly;
   align-items: center;
   flex-wrap: wrap;
-  margin-top: calc(var(--header-height) * 1.5);
+  margin-top: calc(var(--header-height) * 1.25);
   margin-bottom: calc(var(--header-height));
 }
 
