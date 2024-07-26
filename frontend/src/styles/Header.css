@@ -124,6 +124,7 @@ header {
       max-height: 100%;
       filter: invert(var(--invert));
       transform: scale(1);
+      padding-left: 0;
     }
   }
   
