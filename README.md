@@ -40,7 +40,7 @@ A live version of the site is available at [intrinsic.brandongorman.me](https://
 
 3. **Initialize Database**
 
-    An initial data dump is provided in the `Database` folder and is attached as a volume to the PostgreSQL server at `/data/init.dump`.
+    An initial data dump is provided in the `Database` folder and is attached as a volume to the PostgreSQL server at `/data/init-data.dump`.
 
     To initialize the database with this data dump, follow these steps:
 
@@ -54,6 +54,6 @@ A live version of the site is available at [intrinsic.brandongorman.me](https://
     2. Execute the following commands, replacing `<postgres_container_id>` with your container ID, and `<username>` and `<database>` with the values from your .env.dev or .env file:
         ```bash
         docker exec -it <postgres_container_id> bash
-        pg_restore -U <username> -d <database> /data/init.dump
+        pg_restore -U <username> -d <database> /data/init-data.dump
         exit
         ```
