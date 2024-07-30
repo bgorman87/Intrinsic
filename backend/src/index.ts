@@ -76,6 +76,25 @@ app.get("/api/stocks/:quality", async (req: Request, res: Response) => {
   }
 });
 
+app.get("/api/stock/:exchange/:symbol", async (req: Request, res: Response) => {
+  try {
+    const result = await pool.query<Stock>(
+      `SELECT symbol, exchange, current, pe, dcf, roe, title, industry, summary 
+       FROM stocks 
+       WHERE symbol = $1 AND exchange = $2;`,
+      [req.params.symbol, req.params.exchange]
+    );
+    if (result.rows.length === 0) {
+      return res.status(404).send("Stock not found");
+    }
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error("Error fetching stock", err.stack);
+    res.status(500).send("Error fetching stock");
+  }
+
+});
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
