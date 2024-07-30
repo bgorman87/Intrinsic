@@ -14,6 +14,7 @@ const qualityMap: { [key in Quality]: string } = {
   1: "great",
   2: "good",
   3: "okay",
+  4: "na",
 };
 
 const StockList = ({ theme, quality }: StockCardProps) => {
@@ -38,8 +39,13 @@ const StockList = ({ theme, quality }: StockCardProps) => {
     return <div>Error: {error.message}</div>;
   }
 
-  const handleStockClick = ({ exchange, symbol }: { exchange: string; symbol: string }) => {
-    console.log("clicked", exchange, symbol);
+  const handleStockClick = ({
+    exchange,
+    symbol,
+  }: {
+    exchange: string;
+    symbol: string;
+  }) => {
     navigate(`/stock/${exchange}/${symbol}`);
   };
 
@@ -53,7 +59,12 @@ const StockList = ({ theme, quality }: StockCardProps) => {
           stocks.map((stock: Stock, index) => (
             <div
               key={index}
-              onClick={() => handleStockClick({ exchange: stock.exchange, symbol: stock.symbol })}
+              onClick={() =>
+                handleStockClick({
+                  exchange: stock.exchange,
+                  symbol: stock.symbol,
+                })
+              }
               className="stock-list__stock"
             >
               <div className="stock-list__stock-title">
