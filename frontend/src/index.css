@@ -9,6 +9,10 @@
     --invert: 0;
     --accent-stock: var(--text-primary);
     --header-height: 4rem;
+    --stock-great: #3CB371;
+    --stock-good: #4682B4;
+    --stock-ok: #FFA07A;
+    --stock-bad: #F08080;
   }
   [data-theme="dark"] {
     --background: black;

@@ -10,4 +10,13 @@ export interface Stock {
   summary: string;
 }
 
-export type Quality = 1 | 2 | 3;
+export type Quality = 1 | 2 | 3 | 4;
+
+export interface SearchResult {
+  symbol: string;
+  exchange: string;
+  current: number;
+  title: string;
+  industry: string;
+  quality: Quality;
+}
