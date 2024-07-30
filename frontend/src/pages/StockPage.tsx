@@ -13,14 +13,11 @@ const StockPage = ({ theme }: Props) => {
   const [stock, setStock] = useState<Stock | null>(null);
   const [error, setError] = useState<Error | null>(null);
 
-  console.log("StockPage", exchange, symbol);
-
   useEffect(() => {
     const fetchStock = async () => {
       try {
         const data = await fetchStockBySymbol({ exchange, symbol });
         setStock(data);
-        console.log("StockPage data", data);
       } catch (error) {
         setError(error);
       }
