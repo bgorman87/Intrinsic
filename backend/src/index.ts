@@ -95,6 +95,42 @@ app.get("/api/stock/:exchange/:symbol", async (req: Request, res: Response) => {
 
 });
 
+app.get("/api/search", async (req: Request, res: Response) => {
+  const query = req.query.query as string;
+
+  if (!query || query.length < 2) {
+    return res.status(400).send("Query parameter must be at least 2 characters long");
+  }
+
+  try {
+    const result = await pool.query<Stock>(
+      `SELECT 
+         symbol, 
+         exchange, 
+         current, 
+         title, 
+         industry,
+         quality,
+         CASE 
+           WHEN symbol = $1 THEN 1
+           WHEN symbol ILIKE $2 THEN 2
+           WHEN title ILIKE $2 THEN 3
+           ELSE 4
+         END AS relevance 
+       FROM stocks 
+       WHERE symbol ILIKE $2 OR title ILIKE $2 
+       ORDER BY relevance, symbol ASC 
+       LIMIT 10;`,
+      [query, `%${query}%`]
+    );
+    res.json(result.rows);
+  } catch (err) {
+    console.error("Error searching stocks", err.stack);
+    res.status(500).send("Error searching stocks");
+  }
+});
+
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
