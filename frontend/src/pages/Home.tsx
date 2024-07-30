@@ -16,13 +16,13 @@ function Home({ theme, switchTheme }: Props) {
       <Header theme={theme} switchTheme={switchTheme}/>
       <div className="home__stock-lists">
         <div className="home__stock-list great">
-          <StockList quality={1 as Quality}/>
+          <StockList theme={theme} quality={1 as Quality}/>
         </div>
         <div className="home__stock-list good">
-          <StockList quality={2 as Quality}/>
+          <StockList theme={theme} quality={2 as Quality}/>
         </div>
         <div className="home__stock-list okay">
-          <StockList quality={3 as Quality}/>
+          <StockList theme={theme} quality={3 as Quality}/>
         </div>
       </div>
       <Footer/>

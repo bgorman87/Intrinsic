@@ -4,7 +4,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import Home from "./pages/Home";
-// import StockPage from "./pages/StockPage";
+import StockPage from "./pages/StockPage";
 
 function App() {
 
@@ -27,15 +27,13 @@ function App() {
       path: "/",
       element: <Home theme={theme} switchTheme={switchTheme} />,
     },
-    // {
-    //   path: "/stock",
-    //   element: <StockPage theme={theme} switchTheme={switchTheme} />,
-    // },
+    {
+      path: "/stock/:exchange/:symbol",
+      element: <StockPage theme={theme} />,
+    },
   ]);
-
-    return (
-      <RouterProvider router={router} />
-    )
+  
+  return <RouterProvider router={router} />;
 }
 
 export default App

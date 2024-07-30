@@ -12,3 +12,11 @@ export const fetchStocksByQuality = async (
   }
   return response.json();
 };
+
+export const fetchStockBySymbol = async ({exchange, symbol}: {exchange: string, symbol: string}): Promise<Stock> => {
+  const response = await fetch(`${apiUrl}/stock/${exchange}/${symbol}`);
+  if (!response.ok) {
+    throw new Error("Network response was not ok");
+  }
+  return response.json();
+};
