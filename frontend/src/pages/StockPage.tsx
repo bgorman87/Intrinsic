@@ -3,12 +3,15 @@ import { useState, useEffect } from "react";
 import { fetchStockBySymbol } from "../api";
 import { Stock } from "../types";
 import "../styles/StockPage.css";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 interface Props {
   theme: string;
+  switchTheme: () => void;
 }
 
-const StockPage = ({ theme }: Props) => {
+const StockPage = ({ theme, switchTheme }: Props) => {
   const { exchange = '', symbol = '' } = useParams<{ exchange: string; symbol: string }>();
   const [stock, setStock] = useState<Stock | null>(null);
   const [error, setError] = useState<Error | null>(null);
@@ -37,8 +40,10 @@ const StockPage = ({ theme }: Props) => {
   }
 
   return (
-    <div className={`stock-page ${theme}`}>
+    <div className='stock-page' data-theme={theme}>
+      <Header theme={theme} switchTheme={switchTheme}/>
       <h1>{stock.symbol}</h1>
+      <Footer />
     </div>
   );
 };

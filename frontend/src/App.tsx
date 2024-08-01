@@ -29,7 +29,7 @@ function App() {
     },
     {
       path: "/stock/:exchange/:symbol",
-      element: <StockPage theme={theme} />,
+      element: <StockPage theme={theme} switchTheme={switchTheme}/>,
     },
   ]);
   
