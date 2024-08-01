@@ -17,6 +17,7 @@ header {
     justify-content: flex-start;
     align-items: center;
     flex: 1;
+    cursor: pointer;
   }
   
   .header__logo img {
