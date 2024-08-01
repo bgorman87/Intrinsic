@@ -23,7 +23,7 @@
   font-size: inherit;
   background-color: transparent;
   border: none;
-  color: var(--text-muted);
+  color: var(--text-primary);
   padding: 0.7rem 1rem;
   border-radius: 30px;
   width: 100%;
