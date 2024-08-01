@@ -31,7 +31,7 @@ header {
   .header__menu {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Distribute space evenly */
+    justify-content: space-between;
     flex: 2;
     width: 100%;
     box-sizing: border-box;
@@ -41,7 +41,7 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%; /* Center the search bar */
+    width: 100%;
     padding: 0 1rem;
     box-sizing: border-box;
     flex: 1;
@@ -54,6 +54,25 @@ header {
     padding-right: 1rem;
     transform: scale(0.75);
     flex: 1;
+  }
+
+  .header__github-link {
+    display: flex;
+    justify-content: center;
+    justify-content: end;
+    width: 60px;
+  }
+  
+  .header__github-logo {
+    width: 32px;
+    padding: 2px;
+    aspect-ratio: 1;
+    transition: transform 0.2s;
+    filter: invert(var(--invert));
+  }
+  
+  .header__github-logo:hover {
+    transform: scale(1.1);
   }
   
   .header__burger {
@@ -73,7 +92,6 @@ header {
     border-radius: 5px;
   }
   
-  /* Media Queries for responsiveness */
   @media (max-width: 768px) {
     .header {
       padding: 0;
