@@ -5,6 +5,7 @@ import {
 } from "react-router-dom";
 import Home from "./pages/Home";
 import StockPage from "./pages/StockPage";
+import HowItWorks from "./pages/HowItWorks";
 
 function App() {
 
@@ -30,6 +31,10 @@ function App() {
     {
       path: "/stock/:exchange/:symbol",
       element: <StockPage theme={theme} />,
+    },
+    {
+      path: "/how-it-works",
+      element: <HowItWorks theme={theme} switchTheme={switchTheme}/>,
     },
   ]);
   

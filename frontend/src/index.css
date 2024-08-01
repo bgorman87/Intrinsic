@@ -32,12 +32,11 @@
     --accent-stock: rgb(182, 58, 58);
   }
 
-
   body {
     margin: 0;
     padding: 0;
+    font-size: 18px;
     font-family: 'Roboto', sans-serif;
     background-color: var(--background);
     color: var(--text-primary);
-    transition: background-color 0.5s, color 0.5s;
   }
