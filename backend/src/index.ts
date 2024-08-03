@@ -3,7 +3,7 @@ import bodyParser from "body-parser";
 import { Pool } from "pg";
 import dotenv from "dotenv";
 import cors from "cors";
-import { Stock, Quality } from "./types";
+import { Stock, Quality, FullStock } from "./types";
 
 dotenv.config();
 
@@ -76,24 +76,56 @@ app.get("/api/stocks/:quality", async (req: Request, res: Response) => {
   }
 });
 
-app.get("/api/stock/:exchange/:symbol", async (req: Request, res: Response) => {
-  try {
-    const result = await pool.query<Stock>(
-      `SELECT symbol, exchange, current, pe, dcf, roe, title, industry, summary 
-       FROM stocks 
-       WHERE symbol = $1 AND exchange = $2;`,
-      [req.params.symbol, req.params.exchange]
-    );
-    if (result.rows.length === 0) {
-      return res.status(404).send("Stock not found");
+app.get(
+  "/api/fullstock/:exchange/:symbol",
+  async (req: Request, res: Response) => {
+    try {
+      const result = await pool.query<FullStock>(
+        `SELECT 
+          id,
+          symbol, 
+          exchange, 
+          current, 
+          pe, 
+          dcf, 
+          roe, 
+          quality,
+          title, 
+          industry, 
+          marketcap AS "marketCap", 
+          revenue, 
+          netincome AS "netIncome", 
+          assets, 
+          liabilities, 
+          debt, 
+          esgscore AS "esgScore", 
+          controversy, 
+          summary, 
+          longtermdebt AS "longTermDebt", 
+          growthestimate AS "growthEstimate", 
+          currenteps AS "currentEPS", 
+          historicalpe AS "historicalPE", 
+          cashraweq AS "cashRawEq", 
+          fcfrawvalue AS "fcfRawValue", 
+          sharesoutstandingraw AS "sharesOutstandingRaw", 
+          stockholdersequityraw AS "stockholdersEquityRaw", 
+          historicalroe AS "historicalROE", 
+          trailingdividendrateraw AS "trailingDividendRateRaw", 
+          lastupdated AS "lastUpdated"
+        FROM stocks 
+        WHERE symbol = $1 AND exchange = $2;`,
+        [req.params.symbol, req.params.exchange]
+      );
+      if (result.rows.length === 0) {
+        return res.status(404).send("Stock not found");
+      }
+      res.json(result.rows[0]);
+    } catch (err) {
+      console.error("Error fetching full stock", err.stack);
+      res.status(500).send("Error fetching full stock");
     }
-    res.json(result.rows[0]);
-  } catch (err) {
-    console.error("Error fetching stock", err.stack);
-    res.status(500).send("Error fetching stock");
   }
-
-});
+);
 
 app.get("/api/search", async (req: Request, res: Response) => {
   const query = req.query.query as string;

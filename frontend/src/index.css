@@ -42,3 +42,19 @@
     color: var(--text-primary);
     transition: background-color 0.5s, color 0.5s;
   }
+
+  .quality-1 {
+    color: var(--stock-great);
+  }
+  
+  .quality-2 {
+    color: var(--stock-good);
+  }
+  
+  .quality-3 {
+    color: var(--stock-okay);
+  }
+  
+  .quality-4 {
+    color: var(--stock-bad);
+  }

@@ -25,7 +25,6 @@
   align-items: center;
   flex-wrap: wrap;
   margin-top: calc(var(--header-height) * 0.5);
-
 }
 
 .home__stock-list {

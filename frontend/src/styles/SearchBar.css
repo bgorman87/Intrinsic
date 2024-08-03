@@ -109,22 +109,6 @@
   margin-top: 0.2rem;
 }
 
-.quality-1 {
-  color: var(--stock-great);
-}
-
-.quality-2 {
-  color: var(--stock-good);
-}
-
-.quality-3 {
-  color: var(--stock-ok);
-}
-
-.quality-4 {
-  color: var(--stock-bad);
-}
-
 .search-dropdown__title,
 .search-dropdown__industry,
 .search-dropdown__quality {
