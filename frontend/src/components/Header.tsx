@@ -25,6 +25,7 @@ const Header = ({ theme, switchTheme }: Props) => {
 
   return (
     <header className="header">
+      <div className="header__content">
       <div className="header__logo" onClick={() => handleLogoClick()}>
         <img src={headerLogo} alt="Logo" />
       </div>
@@ -44,6 +45,7 @@ const Header = ({ theme, switchTheme }: Props) => {
             <img src={githubLogo} alt="GitHub" className="header__github-logo" />
           </a>
         </div>
+      </div>
       </div>
       <div className="header__burger" onClick={toggleMenu}>
         <div className="burger-bar"></div>
