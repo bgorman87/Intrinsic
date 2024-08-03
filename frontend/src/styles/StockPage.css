@@ -116,6 +116,7 @@
   border: 1px solid var(--text-primary);
   border-radius: 4px;
   background-color: var(--background-muted);
+  box-shadow: none;
 }
 
 .stock-page__content__news {
