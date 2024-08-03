@@ -5,6 +5,7 @@ import { FullStock } from "../types";
 import "../styles/StockPage.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { formatDollar, formatNumber, formatPercent } from "../utils";
 
 interface Props {
   theme: string;
@@ -96,24 +97,6 @@ const StockPage = ({ theme, switchTheme }: Props) => {
   const lastUpdated = stock.lastUpdated
     ? new Date(stock.lastUpdated)
     : new Date();
-  const formatDollar = (value: number | null, locale: string = 'en-US') => {
-    if (value !== null && isFinite(value)) {
-      const options: Intl.NumberFormatOptions = {
-        style: 'currency',
-        currency: 'USD',
-        minimumFractionDigits: value >= 1_000_000_000 ? 0 : 2,
-        maximumFractionDigits: value >= 1_000_000_000 ? 0 : 2,
-      };
-      return new Intl.NumberFormat(locale, options).format(value);
-    }
-    return "N/A";
-  };
-  const formatPercent = (value: number | null) =>
-    value !== null && isFinite(value) ? (value * 100).toFixed(2) + "%" : "N/A";
-  const formatNumber = (value: number | null, locale: string = 'en-US') =>
-      value !== null && isFinite(value)
-          ? new Intl.NumberFormat(locale).format(value)
-          : "N/A";
 
   console.log(stock);
 
