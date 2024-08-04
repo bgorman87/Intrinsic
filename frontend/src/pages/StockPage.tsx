@@ -174,7 +174,7 @@ const StockPage = ({ theme, switchTheme }: Props) => {
                 stock.pe && stock.current ? stock.pe > stock.current : "N/A"
               }
             >
-              ${stock.pe?.toFixed(2)}
+              {formatDollar(stock.pe)}
             </p>
             <p
               className="stock-list__intrinsic__value roe"
@@ -182,7 +182,7 @@ const StockPage = ({ theme, switchTheme }: Props) => {
                 stock.roe && stock.current ? stock.roe > stock.current : "N/A"
               }
             >
-              ${stock.roe?.toFixed(2)}
+              {formatDollar(stock.roe)}
             </p>
             <p
               className="stock-list__intrinsic__value dcf"
@@ -190,7 +190,7 @@ const StockPage = ({ theme, switchTheme }: Props) => {
                 stock.dcf && stock.current ? stock.dcf > stock.current : "N/A"
               }
             >
-              ${stock.dcf?.toFixed(2)}
+              {formatDollar(stock.dcf)}
             </p>
           </div>
           <div className="stock-page__content__news">
