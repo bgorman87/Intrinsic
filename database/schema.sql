@@ -31,6 +31,8 @@ CREATE TABLE IF NOT EXISTS STOCKS (
     LastUpdated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE UNIQUE INDEX idx_symbol_exchange ON stocks(symbol, exchange);
+
 -- Function to update LastUpdated column
 CREATE OR REPLACE FUNCTION update_lastupdated_column()
 RETURNS TRIGGER AS $$
