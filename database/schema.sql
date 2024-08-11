@@ -51,6 +51,12 @@ EXECUTE FUNCTION update_lastupdated_column();
 -- Function to calculate quality
 CREATE OR REPLACE FUNCTION calculate_quality() RETURNS trigger AS $$
 BEGIN
+    -- Check if pe, dcf, and roe are all NULL
+    IF NEW.pe IS NULL AND NEW.dcf IS NULL AND NEW.roe IS NULL THEN
+        NEW.quality := 5;
+        RETURN NEW;
+    END IF;
+
     -- Set pe, dcf, and roe to 0 if they are NULL
     NEW.pe := COALESCE(NEW.pe, 0);
     NEW.dcf := COALESCE(NEW.dcf, 0);
@@ -69,9 +75,11 @@ BEGIN
             WHEN (NEW.pe > NEW.current) OR (NEW.dcf > NEW.current) OR (NEW.roe > NEW.current) THEN 3
             ELSE 4
         END;
+
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
+
 
 -- Trigger to use the quality function
 CREATE TRIGGER update_quality
