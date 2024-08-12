@@ -50,19 +50,36 @@ EXECUTE FUNCTION update_lastupdated_column();
 
 CREATE OR REPLACE FUNCTION calculate_quality() RETURNS trigger AS $$
 BEGIN
+    -- Treat NaN values as NULL
+    IF NEW.pe::text = 'NaN' THEN
+        NEW.pe := NULL;
+    END IF;
+
+    IF NEW.dcf::text = 'NaN' THEN
+        NEW.dcf := NULL;
+    END IF;
+
+    IF NEW.roe::text = 'NaN' THEN
+        NEW.roe := NULL;
+    END IF;
+
+    -- Check if pe, dcf, and roe are all NULL
     IF NEW.pe IS NULL AND NEW.dcf IS NULL AND NEW.roe IS NULL THEN
         NEW.quality := 4;
         RETURN NEW;
     END IF;
 
+    -- Set pe, dcf, and roe to 0 if they are NULL
     NEW.pe := COALESCE(NEW.pe, 0);
     NEW.dcf := COALESCE(NEW.dcf, 0);
     NEW.roe := COALESCE(NEW.roe, 0);
 
+    -- Handle infinity values
     NEW.pe := CASE WHEN NEW.pe = 'Infinity'::float8 THEN 0 ELSE NEW.pe END;
     NEW.dcf := CASE WHEN NEW.dcf = 'Infinity'::float8 THEN 0 ELSE NEW.dcf END;
     NEW.roe := CASE WHEN NEW.roe = 'Infinity'::float8 THEN 0 ELSE NEW.roe END;
 
+    -- Calculate the number of values greater than the current value
     NEW.quality := 
         CASE
             WHEN NEW.pe > NEW.current AND NEW.dcf > NEW.current AND NEW.roe > NEW.current THEN 1
