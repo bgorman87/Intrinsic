@@ -5,6 +5,7 @@ import { FullStock } from "../types";
 import "../styles/StockPage.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import CollapsibleText from "../components/CollapsibleText";
 import { formatDollar, formatNumber, formatPercent } from "../utils";
 
 interface Props {
@@ -193,6 +194,9 @@ const StockPage = ({ theme, switchTheme }: Props) => {
               {formatDollar(stock.dcf)}
             </p>
           </div>
+          <div className="stock-page__summary">
+            <CollapsibleText text={stock.summary ? stock.summary : ""} maxLength={250} />
+          </div>
           <div className="stock-page__content__news">
             <h2>News Stories</h2>
             <p>some news here</p>
@@ -202,6 +206,12 @@ const StockPage = ({ theme, switchTheme }: Props) => {
           <div className="stock-page__content__metric_cards">
             <div className="stock-page__content__metrics">
               <h2>Key Metrics</h2>
+              <div className="stock-page__content__metric">
+                <p className="metric-title">Exchange</p>
+                <p className="metric-quantity">
+                  {stock.exchange.toUpperCase()}
+                </p>
+              </div>
               <div className="stock-page__content__metric">
                 <p className="metric-title">Market Cap</p>
                 <p className="metric-quantity">

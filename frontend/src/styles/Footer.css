@@ -5,6 +5,7 @@ footer {
     background-color: var(--background-header);
     border-top: 1px solid var(--text-primary);
     width: 100%;
+    max-height: var(--header-height);
     position: fixed;
     font-size: 0.75rem;
     z-index: 100;
