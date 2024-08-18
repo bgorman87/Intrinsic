@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS stocks (
     currenteps FLOAT,
     historicalpe FLOAT,
     cashraweq FLOAT,
-    fcfravalue FLOAT,
+    fcfrawvalue FLOAT,
     sharesoutstandingraw FLOAT,
     stockholdersequityraw FLOAT,
     historicalroe FLOAT,
