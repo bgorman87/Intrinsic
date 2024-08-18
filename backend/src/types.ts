@@ -43,5 +43,13 @@ export interface Stock {
     historicalROE: number | null;
     trailingDividendRateRaw: number | null;
     lastUpdated: Date | null;
+    news: News[] | null;
   }
   
+  export interface News {
+    title: string,
+    summary: string,
+    url: string,
+    provider_name: string,
+    provider_publish_time: Date
+  }
