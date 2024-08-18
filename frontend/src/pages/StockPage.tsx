@@ -139,8 +139,6 @@ const StockPage = ({ theme, switchTheme }: Props) => {
     ? new Date(stock.lastUpdated)
     : new Date();
 
-  console.log(stock);
-
   return (
     <div className="stock-page" data-theme={theme}>
       <Header theme={theme} switchTheme={switchTheme} />
@@ -199,7 +197,27 @@ const StockPage = ({ theme, switchTheme }: Props) => {
           </div>
           <div className="stock-page__content__news">
             <h2>News Stories</h2>
-            <p>some news here</p>
+            {stock.news && stock.news.length > 0 ? (
+              stock.news.map((newsItem, index) => (
+                <div key={index} className="news-card">
+                  <h3 className="news-title">{newsItem.title}</h3>
+                  <p className="news-provider">
+                    {new Date(newsItem.provider_publish_time).toLocaleDateString("en-US", options)}
+                  </p>
+                  <p className="news-summary">{newsItem.summary}</p>
+                  <a
+                    href={newsItem.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="news-link"
+                  >
+                    Read more
+                  </a>
+                </div>
+              ))
+            ) : (
+              <p>No news available for this stock.</p>
+            )}
           </div>
         </div>
         <div className="stock-page__content__metrics__container">

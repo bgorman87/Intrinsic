@@ -3,7 +3,7 @@ import bodyParser from "body-parser";
 import { Pool } from "pg";
 import dotenv from "dotenv";
 import cors from "cors";
-import { Stock, Quality, FullStock } from "./types";
+import { Stock, Quality, FullStock, News } from "./types";
 
 dotenv.config();
 
@@ -80,7 +80,7 @@ app.get(
   "/api/fullstock/:exchange/:symbol",
   async (req: Request, res: Response) => {
     try {
-      const result = await pool.query<FullStock>(
+      const stockResult = await pool.query<FullStock>(
         `SELECT 
           id,
           symbol, 
@@ -116,10 +116,34 @@ app.get(
         WHERE symbol = $1 AND exchange = $2;`,
         [req.params.symbol, req.params.exchange]
       );
-      if (result.rows.length === 0) {
+
+      if (stockResult.rows.length === 0) {
         return res.status(404).send("Stock not found");
       }
-      res.json(result.rows[0]);
+
+      const stock = stockResult.rows[0];
+
+      const newsResult = await pool.query<News>(
+        `SELECT 
+          title, 
+          summary, 
+          url,
+          provider_name, 
+          provider_publish_time
+        FROM news 
+        WHERE stock_id = $1
+        ORDER BY provider_publish_time DESC;`,
+        [stock.id]
+      );
+
+      const news = newsResult.rows;
+
+      const fullStockWithNews: FullStock = {
+        ...stock,
+        news: news.length > 0 ? news : null,
+      };
+
+      res.json(fullStockWithNews);
     } catch (err) {
       console.error("Error fetching full stock", err.stack);
       res.status(500).send("Error fetching full stock");
