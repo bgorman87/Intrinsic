@@ -7,6 +7,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import CollapsibleText from "../components/CollapsibleText";
 import { formatDollar, formatNumber, formatPercent } from "../utils";
+import ErrorPage from "../components/ErrorPage";
 
 interface Props {
   theme: string;
@@ -90,11 +91,25 @@ const StockPage = ({ theme, switchTheme }: Props) => {
     current && bvps ? current / bvps : null;
 
   if (error) {
-    return <div>Error: {error.message}</div>;
+    return (
+      <ErrorPage
+        theme={theme}
+        switchTheme={switchTheme}
+        exchange={exchange}
+        symbol={symbol}
+      />
+    );
   }
 
   if (!stock) {
-    return <div>Loading...</div>;
+    return (
+      <div className="stock-page" data-theme={theme}>
+        <Header theme={theme} switchTheme={switchTheme} />
+        <div className="stock-page__header"></div>
+        <div className="stock-page__content"></div>
+        <Footer />
+      </div>
+    );
   }
 
   const options: Intl.DateTimeFormatOptions = {
