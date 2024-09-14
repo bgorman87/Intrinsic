@@ -13,6 +13,7 @@
     --stock-good: #4682B4;
     --stock-ok: #FFA07A;
     --stock-bad: #F08080;
+    --max-width: 1500px;
   }
   [data-theme="dark"] {
     --background: black;
@@ -39,4 +40,21 @@
     font-family: 'Roboto', sans-serif;
     background-color: var(--background);
     color: var(--text-primary);
+    transition: background-color 0.5s, color 0.5s;
+  }
+
+  .quality-1 {
+    color: var(--stock-great);
+  }
+  
+  .quality-2 {
+    color: var(--stock-good);
+  }
+  
+  .quality-3 {
+    color: var(--stock-okay);
+  }
+  
+  .quality-4 {
+    color: var(--stock-bad);
   }

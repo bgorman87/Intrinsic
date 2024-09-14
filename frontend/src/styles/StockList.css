@@ -1,4 +1,3 @@
-/* Stock List Container */
 .stock-list {
     display: flex;
     flex-direction: column;
@@ -124,19 +123,19 @@
 }
 
 .stock-list__intrinsic__value.pe::after {
-    content: "PE";
+    content: "NPV PE";
     font-size: 0.8rem;
     color: var(--text-muted);
 }
 
 .stock-list__intrinsic__value.roe::after {
-    content: "ROE";
+    content: "NPV ROE";
     font-size: 0.8rem;
     color: var(--text-muted);
 }
 
 .stock-list__intrinsic__value.dcf::after {
-    content: "DCF";
+    content: "NPV DCF";
     font-size: 0.8rem;
     color: var(--text-muted);
 }

@@ -23,7 +23,7 @@
   font-size: inherit;
   background-color: transparent;
   border: none;
-  color: var(--text-muted);
+  color: var(--text-primary);
   padding: 0.7rem 1rem;
   border-radius: 30px;
   width: 100%;
@@ -107,22 +107,6 @@
 
 .search-dropdown__current, .search-dropdown__industry, .search-dropdown__quality {
   margin-top: 0.2rem;
-}
-
-.quality-1 {
-  color: var(--stock-great);
-}
-
-.quality-2 {
-  color: var(--stock-good);
-}
-
-.quality-3 {
-  color: var(--stock-ok);
-}
-
-.quality-4 {
-  color: var(--stock-bad);
 }
 
 .search-dropdown__title,

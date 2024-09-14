@@ -2,6 +2,8 @@
 
 A web application to track intrinsic long forecast stock information and display it in a user-friendly manner. This project is built with React, TypeScript, and Express, and uses PostgreSQL for the database.
 
+Note: This project simply holds code related to the web-application. To integrate the live process of stock fetching, you can find the code and installation process in my [Stock Fetcher](https://github.com/bgorman87/Stock-Fetcher.git) repository.
+
 ## Live Demo
 
 A live version of the site is available at [intrinsic.brandongorman.me](https://intrinsic.brandongorman.me).

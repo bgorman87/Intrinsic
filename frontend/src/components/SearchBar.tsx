@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import '../styles/SearchBar.css';
 import { searchStocks } from '../api';
 import { SearchResult } from '../types';
+import { formatDollar } from '../utils';
 
 const SearchBar: React.FC = () => {
   const [query, setQuery] = useState<string>('');
@@ -83,7 +84,7 @@ const SearchBar: React.FC = () => {
               >
                 <div className="search-dropdown__symbol">
                   <span>{result.symbol} ({result.exchange.toUpperCase()})</span>
-                  <span className="search-dropdown__price">${result.current.toFixed(2)}</span>
+                  <span className="search-dropdown__price">{formatDollar(result.current)}</span>
                 </div>
                 <div className="search-dropdown__title">{result.title}</div>
                 <div className="search-dropdown__industry">Industry: {result.industry}</div>
