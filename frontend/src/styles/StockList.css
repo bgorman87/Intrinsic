@@ -190,6 +190,13 @@
 
 @media (max-width: 480px) {
     .stock-list {
+        padding: 0.2rem;
+    }
+    .stock-list__stock {
         padding: 0.5rem;
+        padding-bottom: 1rem;
+    }
+    .stock-list__intrinsic-values {
+        gap: 5px;
     }
 }
