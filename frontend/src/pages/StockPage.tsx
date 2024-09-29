@@ -253,7 +253,13 @@ const StockPage = ({ theme, switchTheme }: Props) => {
               </div>
               <div className="stock-page__content__metric">
                 <p className="metric-title">Growth Estimate (5 yr)</p>
-                <p className="metric-quantity">
+                <p
+                  className={`metric-quantity ${
+                    stock.growthEstimate && stock.growthEstimate > 1
+                      ? "growth-high"
+                      : "growth-normal"
+                  }`}
+                >
                   {formatPercent(stock.growthEstimate)}
                 </p>
               </div>

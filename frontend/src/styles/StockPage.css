@@ -182,6 +182,12 @@
   font-size: 0.9rem;
 }
 
+/* .stock-page__content__metric .metric-quantity__container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+} */
+
 .stock-page__summary {
   padding: 0 1rem;
   box-sizing: border-box;
@@ -197,8 +203,27 @@
   color: var(--text-primary);
 }
 
+.stock-page__content__metric .metric-quantity.growth-normal {
+  color: var(--text-primary);
+}
+
+.stock-page__content__metric .metric-quantity.growth-high {
+  color: orange;
+  font-size: 1.4rem;
+}
+
+.stock-page__content__metric .metric-quantity.growth-high::after {
+  content: "Abnormal growth estimate";
+  font-size: 0.8rem;
+  font-weight: 300;
+  color: var(--text-muted);
+}
 
 .stock-page__content__metric .metric-quantity {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
   font-weight: 700;
   margin: 0;
   font-size: 1.5rem;
