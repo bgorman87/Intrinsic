@@ -268,7 +268,7 @@ const StockPage = ({ theme, switchTheme }: Props) => {
                 <p className="metric-quantity">{formatDollar(eps)}</p>
               </div>
               <div className="stock-page__content__metric">
-                <p className="metric-title">P/E Ratio</p>
+                <p className="metric-title">P/E Ratio (Price-to-Earnings)</p>
                 <p className="metric-quantity">{formatNumber(peRatio)}</p>
               </div>
               <div className="stock-page__content__metric">
@@ -290,7 +290,7 @@ const StockPage = ({ theme, switchTheme }: Props) => {
                 </p>
               </div>
               <div className="stock-page__content__metric">
-                <p className="metric-title">Current Ratio</p>
+                <p className="metric-title">A/L Ratio (Assets-to-Liabilities)</p>
                 <p className="metric-quantity">{formatNumber(currentRatio)}</p>
               </div>
               <div className="stock-page__content__metric">
