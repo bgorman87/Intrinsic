@@ -77,7 +77,7 @@ const StockList = ({ theme, quality }: StockCardProps) => {
                 </h2>
               </div>
               <div className="stock-list__stock__details">
-                <div className="stock-list__stock__summary__icon">
+                {/* <div className="stock-list__stock__summary__icon">
                   <svg
                     width="16"
                     height="16"
@@ -91,7 +91,7 @@ const StockList = ({ theme, quality }: StockCardProps) => {
                     />
                   </svg>
                   <span className="tooltiptext">Some Text</span>
-                </div>
+                </div> */}
                 <h3 className="stock-list__stock__name">{stock.title}</h3>
               </div>
               <div className="stock-list__intrinsic-values">
