@@ -252,7 +252,7 @@ const StockPage = ({ theme, switchTheme }: Props) => {
                 </p>
               </div>
               <div className="stock-page__content__metric">
-                <p className="metric-title">Growth Estimate (5 yr)</p>
+                <p className="metric-title">Growth Estimate (1 yr)</p>
                 <p
                   className={`metric-quantity ${
                     stock.growthEstimate && stock.growthEstimate > 1
