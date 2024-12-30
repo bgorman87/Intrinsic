@@ -1,15 +1,12 @@
 export const formatDollar = (
-  value: number | null, 
-  simplify: boolean = false
+  value: number | null
 ) => {
   const userLocale = navigator.language || 'en-US';
   if (value !== null && isFinite(value)) {
-    if (simplify) {
-      if (value > 10_000) {
-        return "> $10,000";
-      } else if (value < -10_000) {
-        return "< -$10,000";
-      }
+    if (value > 1_000_000) {
+        return "> $1 Million";
+    } else if (value < -1_000_000) {
+        return "< -$1 Million";
     }
     const options: Intl.NumberFormatOptions = {
       style: 'currency',

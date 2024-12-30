@@ -99,19 +99,19 @@ const StockList = ({ theme, quality }: StockCardProps) => {
                   className="stock-list__intrinsic__value pe"
                   data-stock={stock.pe > stock.current}
                 >
-                  {formatDollar(stock.pe, true)}
+                  {formatDollar(stock.pe)}
                 </p>
                 <p
                   className="stock-list__intrinsic__value roe"
                   data-stock={stock.roe > stock.current}
                 >
-                  {formatDollar(stock.roe, true)}
+                  {formatDollar(stock.roe)}
                 </p>
                 <p
                   className="stock-list__intrinsic__value dcf"
                   data-stock={stock.dcf > stock.current}
                 >
-                  {formatDollar(stock.dcf, true)}
+                  {formatDollar(stock.dcf)}
                 </p>
               </div>
             </div>
