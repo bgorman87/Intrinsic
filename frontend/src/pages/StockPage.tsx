@@ -6,7 +6,12 @@ import "../styles/StockPage.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import CollapsibleText from "../components/CollapsibleText";
-import { formatDollar, formatNumber, formatPercent } from "../utils";
+import {
+  formatDollar,
+  formatNPVDollar,
+  formatNumber,
+  formatPercent,
+} from "../utils";
 import ErrorPage from "../components/ErrorPage";
 
 interface Props {
@@ -188,7 +193,7 @@ const StockPage = ({ theme, switchTheme }: Props) => {
                 stock.pe && stock.current ? stock.pe > stock.current : "N/A"
               }
             >
-              {formatDollar(stock.pe)}
+              {formatNPVDollar(stock.pe)}
             </p>
             <p
               className="stock-list__intrinsic__value roe"
@@ -196,7 +201,7 @@ const StockPage = ({ theme, switchTheme }: Props) => {
                 stock.roe && stock.current ? stock.roe > stock.current : "N/A"
               }
             >
-              {formatDollar(stock.roe)}
+              {formatNPVDollar(stock.roe)}
             </p>
             <p
               className="stock-list__intrinsic__value dcf"
@@ -204,11 +209,14 @@ const StockPage = ({ theme, switchTheme }: Props) => {
                 stock.dcf && stock.current ? stock.dcf > stock.current : "N/A"
               }
             >
-              {formatDollar(stock.dcf)}
+              {formatNPVDollar(stock.dcf)}
             </p>
           </div>
           <div className="stock-page__summary">
-            <CollapsibleText text={stock.summary ? stock.summary : ""} maxLength={250} />
+            <CollapsibleText
+              text={stock.summary ? stock.summary : ""}
+              maxLength={250}
+            />
           </div>
           <div className="stock-page__content__news">
             <h2>News Stories</h2>
@@ -217,7 +225,9 @@ const StockPage = ({ theme, switchTheme }: Props) => {
                 <div key={index} className="news-card">
                   <h3 className="news-title">{newsItem.title}</h3>
                   <p className="news-provider">
-                    {new Date(newsItem.provider_publish_time).toLocaleDateString("en-US", options)}
+                    {new Date(
+                      newsItem.provider_publish_time
+                    ).toLocaleDateString("en-US", options)}
                   </p>
                   <p className="news-summary">{newsItem.summary}</p>
                   <a
@@ -296,7 +306,9 @@ const StockPage = ({ theme, switchTheme }: Props) => {
                 </p>
               </div>
               <div className="stock-page__content__metric">
-                <p className="metric-title">A/L Ratio (Assets-to-Liabilities)</p>
+                <p className="metric-title">
+                  A/L Ratio (Assets-to-Liabilities)
+                </p>
                 <p className="metric-quantity">{formatNumber(currentRatio)}</p>
               </div>
               <div className="stock-page__content__metric">

@@ -4,7 +4,7 @@ import { Quality, Stock } from "../types";
 import { useState, useEffect } from "react";
 import { fetchStocksByQuality } from "../api";
 import StockListLoaderContainer from "./StockListLoader";
-import { formatDollar } from "../utils";
+import { formatDollar, formatNPVDollar } from "../utils";
 
 interface StockCardProps {
   theme: string;
@@ -99,19 +99,19 @@ const StockList = ({ theme, quality }: StockCardProps) => {
                   className="stock-list__intrinsic__value pe"
                   data-stock={stock.pe > stock.current}
                 >
-                  {formatDollar(stock.pe)}
+                  {formatNPVDollar(stock.pe)}
                 </p>
                 <p
                   className="stock-list__intrinsic__value roe"
                   data-stock={stock.roe > stock.current}
                 >
-                  {formatDollar(stock.roe)}
+                  {formatNPVDollar(stock.roe)}
                 </p>
                 <p
                   className="stock-list__intrinsic__value dcf"
                   data-stock={stock.dcf > stock.current}
                 >
-                  {formatDollar(stock.dcf)}
+                  {formatNPVDollar(stock.dcf)}
                 </p>
               </div>
             </div>
