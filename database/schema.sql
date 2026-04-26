@@ -2,36 +2,73 @@ CREATE TABLE IF NOT EXISTS stocks (
     id SERIAL PRIMARY KEY,
     symbol TEXT,
     exchange TEXT,
+
     current FLOAT,
-    pe FLOAT,
-    dcf FLOAT,
-    roe FLOAT,
+
+    valuation_category TEXT,
+
+    val1 FLOAT,
+    val2 FLOAT,
+    val3 FLOAT,
+    val1_label TEXT,
+    val2_label TEXT,
+    val3_label TEXT,
+
+    dcf_bear FLOAT,
+    dcf_base FLOAT,
+    dcf_bull FLOAT,
+
     quality INT,
+
     title TEXT,
+    sector TEXT,
     industry TEXT,
     marketcap FLOAT,
+    summary TEXT,
+
     revenue FLOAT,
     netincome FLOAT,
+    grossprofit FLOAT,
+    operatingincome FLOAT,
+    ebitda FLOAT,
+    interestexpense FLOAT,
+    depreciationamortization FLOAT,
+
     assets FLOAT,
     liabilities FLOAT,
     debt FLOAT,
-    esgscore FLOAT,
-    controversy FLOAT,
-    summary TEXT,
     longtermdebt FLOAT,
-    growthestimate FLOAT,
+    cashraweq FLOAT,
+    stockholdersequityraw FLOAT,
+    sharesoutstandingraw FLOAT,
+    bookvaluepershare FLOAT,
+
+    fcfrawvalue FLOAT,
+    capex FLOAT,
+    operatingcashflow FLOAT,
+    ffo FLOAT,
+
     currenteps FLOAT,
     historicalpe FLOAT,
-    cashraweq FLOAT,
-    fcfrawvalue FLOAT,
-    sharesoutstandingraw FLOAT,
-    stockholdersequityraw FLOAT,
     historicalroe FLOAT,
     trailingdividendrateraw FLOAT,
+    growthestimate FLOAT,
+
+    roic FLOAT,
+    piotroski INT,
+    grossmargin FLOAT,
+    operatingmargin FLOAT,
+    graham FLOAT,
+    evebitda FLOAT,
+    pricetoffo FLOAT,
+
+    esgscore FLOAT,
+    controversy FLOAT,
+
     lastupdated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE UNIQUE INDEX idx_symbol_exchange ON stocks(symbol, exchange);
+CREATE UNIQUE INDEX IF NOT EXISTS idx_symbol_exchange ON stocks(symbol, exchange);
 
 CREATE TABLE IF NOT EXISTS news (
     id SERIAL PRIMARY KEY,
@@ -54,45 +91,43 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+DROP TRIGGER IF EXISTS update_stocks_lastupdated ON stocks;
 CREATE TRIGGER update_stocks_lastupdated
 BEFORE UPDATE ON stocks
 FOR EACH ROW
 EXECUTE FUNCTION update_lastupdated_column();
 
 CREATE OR REPLACE FUNCTION calculate_quality() RETURNS trigger AS $$
+DECLARE
+    v1 FLOAT;
+    v2 FLOAT;
+    v3 FLOAT;
+    above INT;
 BEGIN
-    IF NEW.pe::text = 'NaN' THEN
-        NEW.pe := NULL;
-    END IF;
+    -- Sanitise NaN and Infinity
+    NEW.val1 := CASE WHEN NEW.val1::text IN ('NaN','Infinity','-Infinity') THEN NULL ELSE NEW.val1 END;
+    NEW.val2 := CASE WHEN NEW.val2::text IN ('NaN','Infinity','-Infinity') THEN NULL ELSE NEW.val2 END;
+    NEW.val3 := CASE WHEN NEW.val3::text IN ('NaN','Infinity','-Infinity') THEN NULL ELSE NEW.val3 END;
 
-    IF NEW.dcf::text = 'NaN' THEN
-        NEW.dcf := NULL;
-    END IF;
-
-    IF NEW.roe::text = 'NaN' THEN
-        NEW.roe := NULL;
-    END IF;
-
-    IF NEW.pe IS NULL AND NEW.dcf IS NULL AND NEW.roe IS NULL THEN
+    IF NEW.val1 IS NULL AND NEW.val2 IS NULL AND NEW.val3 IS NULL THEN
         NEW.quality := 4;
         RETURN NEW;
     END IF;
 
-    NEW.pe := COALESCE(NEW.pe, 0);
-    NEW.dcf := COALESCE(NEW.dcf, 0);
-    NEW.roe := COALESCE(NEW.roe, 0);
+    v1 := COALESCE(NEW.val1, 0);
+    v2 := COALESCE(NEW.val2, 0);
+    v3 := COALESCE(NEW.val3, 0);
 
-    NEW.pe := CASE WHEN NEW.pe = 'Infinity'::float8 THEN 0 ELSE NEW.pe END;
-    NEW.dcf := CASE WHEN NEW.dcf = 'Infinity'::float8 THEN 0 ELSE NEW.dcf END;
-    NEW.roe := CASE WHEN NEW.roe = 'Infinity'::float8 THEN 0 ELSE NEW.roe END;
+    above :=
+        CASE WHEN v1 > NEW.current THEN 1 ELSE 0 END +
+        CASE WHEN v2 > NEW.current THEN 1 ELSE 0 END +
+        CASE WHEN v3 > NEW.current THEN 1 ELSE 0 END;
 
     NEW.quality :=
         CASE
-            WHEN NEW.pe > NEW.current AND NEW.dcf > NEW.current AND NEW.roe > NEW.current THEN 1
-            WHEN (NEW.pe > NEW.current AND NEW.dcf > NEW.current)
-                 OR (NEW.pe > NEW.current AND NEW.roe > NEW.current)
-                 OR (NEW.dcf > NEW.current AND NEW.roe > NEW.current) THEN 2
-            WHEN (NEW.pe > NEW.current) OR (NEW.dcf > NEW.current) OR (NEW.roe > NEW.current) THEN 3
+            WHEN above = 3 THEN 1
+            WHEN above = 2 THEN 2
+            WHEN above = 1 THEN 3
             ELSE 4
         END;
 
@@ -100,6 +135,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+DROP TRIGGER IF EXISTS update_quality ON stocks;
 CREATE TRIGGER update_quality
 BEFORE INSERT OR UPDATE ON stocks
 FOR EACH ROW

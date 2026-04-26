@@ -11,8 +11,10 @@ services:
       - pgdata-prod:/var/lib/postgresql/data
       - ./database/schema.sql:/docker-entrypoint-initdb.d/schema.sql
       - ./database/init-data.dump:/docker-entrypoint-initdb.d/init.dump
+      - ./database/init-users-prod.sql:/docker-entrypoint-initdb.d/02-init-users.sql
     networks:
       - backend-network
+    restart: unless-stopped
 
   express-app:
     build:
@@ -22,16 +24,18 @@ services:
         BACKEND_PORT: ${BACKEND_PORT}
     depends_on:
       - db
+    ports:
+      - "127.0.0.1:${BACKEND_PORT}:${BACKEND_PORT}"
     environment:
-      - NODE_ENV=production
-      - DATABASE_USER=${DATABASE_USER}
-      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - DATABASE_USER=${DATABASE_READER_USER}
+      - DATABASE_PASSWORD=${DATABASE_READER_PASSWORD}
       - DATABASE_NAME=${DATABASE_NAME}
       - DATABASE_HOST=${DATABASE_HOST}
       - DATABASE_PORT=${DATABASE_PORT}
       - SITE_URL=${SITE_URL}
       - BACKEND_PORT=${BACKEND_PORT}
       - BACKEND_HOST=${BACKEND_HOST}
+      - NODE_ENV=production
     networks:
       - backend-network
 
@@ -50,12 +54,15 @@ services:
     depends_on:
       - express-app
     ports:
-      - "${FRONTEND_PORT}:80"
+      - "127.0.0.1:${FRONTEND_PORT}:80"
     networks:
       - frontend-network
       - backend-network
+    restart: unless-stopped
+
 volumes:
   pgdata-prod:
+
 
 networks:
   frontend-network:

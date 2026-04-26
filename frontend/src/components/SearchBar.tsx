@@ -5,6 +5,15 @@ import { searchStocks } from '../api';
 import { SearchResult } from '../types';
 import { formatDollar } from '../utils';
 
+const categoryLabel: Record<string, string> = {
+  asset_light: "Asset-light",
+  asset_heavy: "Asset-heavy",
+  financial: "Financial",
+  cyclical: "Cyclical",
+  reit: "REIT",
+  unknown: "Unknown",
+};
+
 const SearchBar: React.FC = () => {
   const [query, setQuery] = useState<string>('');
   const [results, setResults] = useState<SearchResult[]>([]);
@@ -24,18 +33,16 @@ const SearchBar: React.FC = () => {
   };
 
   useEffect(() => {
-    if (query.length >= 2) {
-      const fetchResults = async () => {
-        try {
-          const data = await searchStocks(query);
-          setResults(data);
-        } catch (error) {
-          console.error('Error fetching search results:', error);
-        }
-      };
-
-      fetchResults();
-    }
+    if (query.length < 2) return;
+    const timer = setTimeout(async () => {
+      try {
+        const data = await searchStocks(query);
+        setResults(data);
+      } catch (error) {
+        console.error('Error fetching search results:', error);
+      }
+    }, 300);
+    return () => clearTimeout(timer);
   }, [query]);
 
   useEffect(() => {
@@ -44,14 +51,13 @@ const SearchBar: React.FC = () => {
         setDropdownVisible(false);
       }
     };
-
     document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
   const handleStockClick = ({ exchange, symbol }: { exchange: string; symbol: string }) => {
+    setDropdownVisible(false);
+    setQuery('');
     navigate(`/stock/${exchange}/${symbol}`);
   };
 
@@ -76,20 +82,27 @@ const SearchBar: React.FC = () => {
       {dropdownVisible && (
         <div className="search-dropdown">
           {results.length > 0 ? (
-            results.map((result, index) => (
-              <div 
-              key={index} 
-              className="search-dropdown__item"
-              onClick={() => handleStockClick({ exchange: result.exchange, symbol: result.symbol })}
+            results.map((result) => (
+              <div
+                key={`${result.exchange}-${result.symbol}`}
+                className="search-dropdown__item"
+                onClick={() => handleStockClick({ exchange: result.exchange, symbol: result.symbol })}
               >
                 <div className="search-dropdown__symbol">
                   <span>{result.symbol} ({result.exchange.toUpperCase()})</span>
-                  <span className="search-dropdown__price">{formatDollar(result.current)}</span>
+                  <span className="search-dropdown__price">
+                    {formatDollar(result.current, result.exchange)}
+                  </span>
                 </div>
                 <div className="search-dropdown__title">{result.title}</div>
-                <div className="search-dropdown__industry">Industry: {result.industry}</div>
-                <div className="search-dropdown__quality">
-                  Quality: <span className={`quality quality-${result.quality}`}>
+                <div className="search-dropdown__meta">
+                  <span className="search-dropdown__industry">{result.industry}</span>
+                  {result.valuation_category && (
+                    <span className="search-dropdown__category">
+                      {categoryLabel[result.valuation_category] ?? result.valuation_category}
+                    </span>
+                  )}
+                  <span className={`quality quality-${result.quality}`}>
                     {['Great', 'Good', 'Okay', 'Bad'][result.quality - 1]}
                   </span>
                 </div>

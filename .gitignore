@@ -130,3 +130,5 @@ public/
 
 # Nuxt.js build output
 .nuxt/
+
+database/init-users-prod.sql
